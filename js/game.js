@@ -13,6 +13,60 @@ const characters = [
     "scroopy"
 ]
 
+let firstCard = "";
+let secondCard = "";
+
+const checkEndGame = () => {
+    const disabledCards = document.querySelectorAll(".disabled-card");
+
+    if (disabledCards.length == 20) {
+        setTimeout(() => {
+            alert("Congrats! You found all the cards!");
+        }, 500);
+    }
+}
+
+const compareCards = () => {
+    const firstCharacter = firstCard.getAttribute("data-character");
+    const secondCharacter = secondCard.getAttribute("data-character");
+
+    if (firstCharacter == secondCharacter) {
+        firstCard.firstChild.classList.add("disabled-card");
+        secondCard.firstChild.classList.add("disabled-card");
+
+        firstCard = '';
+        secondCard = '';
+        checkEndGame();
+    } 
+    else {
+        setTimeout(() => {
+            firstCard.classList.remove("reveal-card");
+            secondCard.classList.remove("reveal-card");
+
+            firstCard = '';
+            secondCard = '';
+        }, 500);
+    }
+}
+
+const revealCard = ({target}) => {
+    const parentNode = target.parentNode;
+
+    if (parentNode.className.includes("reveal-card")) {
+        return;
+    }
+
+    if (firstCard == "") {
+        parentNode.classList.add("reveal-card");
+        firstCard = parentNode;
+    }
+    else if (secondCard == "") {
+        parentNode.classList.add("reveal-card");
+        secondCard = parentNode;
+        compareCards();
+    }
+}
+
 const createElement = (tag, className) => {
     const element = document.createElement(tag);
     element.className = className;
@@ -26,8 +80,11 @@ const createCard = (character) => {
 
     front.style.backgroundImage = `url(../images/${character}.png)`;
 
+    card.setAttribute("data-character", character);
     card.appendChild(front);
     card.appendChild(back);
+
+    card.addEventListener("click", revealCard);
 
     return card;
 }

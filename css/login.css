@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100vh;
     justify-content: center;
+    background-color: rgb(32, 31, 31);
 }
 
 .login__header {
@@ -15,18 +16,18 @@
 }
 
 .login__header img {
-    width: 100px;
+    width: 150px;
 }
 
 .login__header h1 {
-    color: #333;
-    font-size: 1.5em;
+    color: #15ff00;
+    font-size: 2em;
 }
 
 .login__input {
-    border: 2px solid #333;
+    border: 2px solid #15ff00;
     border-radius: 8px;
-    color: #333;
+    color: rgb(32, 31, 31);
     font-size: 1em;
     margin-bottom: 15px;
     outline: none;
@@ -47,7 +48,7 @@
 }
 
 .login__button:disabled {
-    background-color: #eee;
-    color: #aaa;
+    background-color: #eeeeeead;
+    color: white;
     cursor: auto;
 }

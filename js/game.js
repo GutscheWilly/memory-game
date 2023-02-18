@@ -1,4 +1,6 @@
 const grid = document.querySelector(".grid");
+const player = document.querySelector(".player");
+const timer = document.querySelector(".timer");
 
 const characters = [
     "beth",
@@ -21,7 +23,8 @@ const checkEndGame = () => {
 
     if (disabledCards.length == 20) {
         setTimeout(() => {
-            alert("Congrats! You found all the cards!");
+            clearInterval(this.timerLoop);
+            alert(`Congrats, ${player.innerHTML}!\nYour time was: ${timer.innerHTML} seconds!`);
         }, 500);
     }
 }
@@ -34,8 +37,8 @@ const compareCards = () => {
         firstCard.firstChild.classList.add("disabled-card");
         secondCard.firstChild.classList.add("disabled-card");
 
-        firstCard = '';
-        secondCard = '';
+        firstCard = "";
+        secondCard = "";
         checkEndGame();
     } 
     else {
@@ -43,8 +46,8 @@ const compareCards = () => {
             firstCard.classList.remove("reveal-card");
             secondCard.classList.remove("reveal-card");
 
-            firstCard = '';
-            secondCard = '';
+            firstCard = "";
+            secondCard = "";
         }, 500);
     }
 }
@@ -99,4 +102,20 @@ const loadGame = () => {
     });
 }
 
-loadGame();
+const setPlayerName = () => {
+    const playerName = localStorage.getItem("playerName");
+    player.innerHTML = playerName;
+}
+
+const startTimer = () => {
+    this.timerLoop = setInterval(() => {
+        const currentTime = Number(timer.innerHTML);
+        timer.innerHTML = currentTime + 1;
+    }, 1000);
+}
+
+window.onload = () => {
+    loadGame();
+    setPlayerName();
+    startTimer();
+}
